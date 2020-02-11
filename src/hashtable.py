@@ -51,6 +51,22 @@ class HashTable:
 
         Fill this in.
         '''
+        # creating an integer of the key which will be the index
+        index =self._hash_mod(key)
+        current_node = self.storage[index]
+        last_node = None
+        # Making sure the key of the node doesn't exists
+        while (current_node is not None) and (current_node.key != key):
+            last_node = current_node
+            current_node = last_node
+        if current_node is not None:
+            current_node.value = value
+        else:
+            # createing a new node using LinkedPair
+            new_node = LinkedPair(key, value)
+            new_node.next = self.storage[index]
+            # replace with new node
+            self.storage[index] = new_node
         pass
 
 
@@ -63,6 +79,21 @@ class HashTable:
 
         Fill this in.
         '''
+        index = self._hash_mod(key)
+        node = self.storage[index]
+        next_node = None
+        while node is not None and node.key != key:
+            next_node = node
+            node = next_node.next_node
+        if node is None:
+            print("doesn't exists")
+        else:
+            if next_node is None:
+                self.storage[index] = node.next_node
+                # deleting the node if the node exists then making it equal it to next
+            else:
+                next_node.next = node.next
+                
         pass
 
 
